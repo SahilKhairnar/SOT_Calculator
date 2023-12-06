@@ -5,7 +5,6 @@ public class MathEquation {
     private double rightVal;
     private char opCode;
     private double result;
-
     private static int numberOfCalculations;
     private static double sumOfResults;
 
@@ -14,19 +13,15 @@ public class MathEquation {
     public MathEquation(char opCode) {
         this.opCode = opCode;
     }
-
     public MathEquation(char opCode, double leftVal, double rightVal) {
         this(opCode);
         this.leftVal = leftVal;
         this.rightVal = rightVal;
     }
-
     public MathEquation(char opCode, double rightVal){
         this(opCode);
         this.rightVal = rightVal;
     }
-
-
     void execute() {
         switch (opCode) {
             case 'a':
@@ -54,6 +49,20 @@ public class MathEquation {
         sumOfResults += result;
     }
 
+    // Overloading execute()
+    public void execute(double leftVal, double rightVal){
+        this.leftVal = leftVal;
+        this.rightVal = rightVal;
+        execute();
+    }
+
+    // Overloading execute() for inputs that are integers.
+    public void execute(int leftVal, int rightVal){
+        this.leftVal = leftVal;
+        this.rightVal = rightVal;
+        execute();
+        result = (int) result;
+    }
     public static double getAverageResult() {
         return sumOfResults / numberOfCalculations;
     }

@@ -10,7 +10,7 @@ public class Main {
     }
 
     static void performCalculations() {
-        MathEquation[] equations = new MathEquation[4];
+        MathEquation[] equations = new MathEquation[5];
         equations[0] = new MathEquation('d', 100.0d, 50.0d);
         equations[1] = new MathEquation('a', 25.0d, 92.0d);
         equations[2] = new MathEquation('s', 225.0d, 17.0d);
@@ -24,5 +24,31 @@ public class Main {
         }
 
         System.out.println("Average result = " + MathEquation.getAverageResult());
+        System.out.println();
+
+        //Method overload check
+        MathEquation methodOverLoadCheck = new MathEquation('m');
+        double left = 5.0d;
+        double right = 101.0d;
+        methodOverLoadCheck.execute(left,right);
+        System.out.println("The result of method overload is " + methodOverLoadCheck.getResult());
+        System.out.println();
+
+        //Method overload integer check
+        MathEquation integerCheck = new MathEquation('d');
+        int leftint = 20;
+        int rightint = 3;
+        integerCheck.execute(leftint, rightint);
+        System.out.println("The result of operation on integers is: " + integerCheck.getResult());
+
+        //Calculations using inheritances
+        System.out.println();
+        System.out.println("-----------Inheritance-------------");
+        Adder adder = new Adder();
+        adder.setLeftVal(10.0d);
+        adder.setRightVal(5.0d);
+        adder.calculate();
+        System.out.println("The result of calculation is: " + adder.getResult());
+
     }
 }
