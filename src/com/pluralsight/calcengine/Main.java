@@ -6,7 +6,9 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        performCalculations();
+//        performCalculations();
+        executeInteractively();
+        //dynamicInteractivity();
     }
 
     static void performCalculations() {
@@ -50,5 +52,62 @@ public class Main {
         adder.calculate();
         System.out.println("The result of calculation is: " + adder.getResult());
 
+
     }
+
+    //Implementing Enums
+
+    static void executeInteractively() {
+        System.out.println("Enter an operation and two numbers:");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        String[] parts = userInput.split(" ");
+        performOperation(parts);
+    }
+
+    private static void dynamicInteractivity() {
+        DynamicHelper helper = new DynamicHelper(new MathProcessing[] {
+                new Adder()
+        });
+
+        System.out.println("Enter an operation and two numbers:");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+        helper.process(userInput);
+    }
+    private static void performOperation(String[] parts) {
+        MathOperation operation = MathOperation.valueOf(parts[0].toUpperCase());
+        double leftVal = Double.parseDouble(parts[1]);
+        double rightVal = Double.parseDouble(parts[2]);
+        CalculateBase calculation = CreateCalculation(operation, leftVal, rightVal);
+        calculation.calculate();
+        System.out.println("Operation performed: " + operation);
+        System.out.println(calculation.getResult());
+    }
+
+
+    private static CalculateBase CreateCalculation(MathOperation operation, double rightVal, double leftVal){
+        CalculateBase calculation = null;
+
+        switch(operation){
+            case ADD:
+                calculation = new Adder(rightVal, leftVal);
+                break;
+            case SUBTRACT:
+                calculation = new Substractor(leftVal, rightVal);
+                break;
+            case MULTIPLY:
+                calculation = new Multiplier(leftVal, rightVal);
+                break;
+            case DIVIDE:
+                calculation = new Divider(leftVal, rightVal);
+                break;
+            case DOUBLE:
+                calculation = new Doubler(leftVal, rightVal);
+                break;
+        }
+        return calculation;
+    }
+
 }
